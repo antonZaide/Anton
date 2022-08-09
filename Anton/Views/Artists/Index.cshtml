@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Anton.Models.Artist>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.firstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.band)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.roles)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReportsToID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DOB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Company)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.firstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.band)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.roles)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReportsToID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DOB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Company.CompanyID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ArtistID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ArtistID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ArtistID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
