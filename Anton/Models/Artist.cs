@@ -8,6 +8,7 @@
         public string band  { get; set; }
         public string roles { get; set; }
         public int ReportsToID { get; set; }
+        public string street { get; set; }
         public DateTime DOB { get; set; }
         public int CompanyID { get; set; }
 

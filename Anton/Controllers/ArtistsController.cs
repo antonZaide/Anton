@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Anton.Areas.Identity.Data;
 using Anton.Models;
 
-namespace Anton.Controllers
+namespace Anton.Views.Artists
 {
     public class ArtistsController : Controller
     {
@@ -57,7 +57,7 @@ namespace Anton.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ArtistID,firstName,lastName,band,roles,ReportsToID,DOB,CompanyID")] Artist artist)
+        public async Task<IActionResult> Create([Bind("ArtistID,firstName,lastName,band,roles,ReportsToID,street,DOB,CompanyID")] Artist artist)
         {
             if (!ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace Anton.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ArtistID,firstName,lastName,band,roles,ReportsToID,DOB,CompanyID")] Artist artist)
+        public async Task<IActionResult> Edit(int id, [Bind("ArtistID,firstName,lastName,band,roles,ReportsToID,street,DOB,CompanyID")] Artist artist)
         {
             if (id != artist.ArtistID)
             {
@@ -155,14 +155,14 @@ namespace Anton.Controllers
             {
                 _context.Artist.Remove(artist);
             }
-
+            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ArtistExists(int id)
         {
-            return (_context.Artist?.Any(e => e.ArtistID == id)).GetValueOrDefault();
+          return (_context.Artist?.Any(e => e.ArtistID == id)).GetValueOrDefault();
         }
     }
 }
