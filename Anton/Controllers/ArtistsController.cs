@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Anton.Areas.Identity.Data;
 using Anton.Models;
 
-namespace Anton.Views.Artists
+namespace Anton.Controllers
 {
     public class ArtistsController : Controller
     {
@@ -22,19 +22,19 @@ namespace Anton.Views.Artists
         // GET: Artists
         public async Task<IActionResult> Index()
         {
-            var antonContextDb = _context.Artist.Include(a => a.Company);
+            var antonContextDb = _context.Artists.Include(a => a.Company);
             return View(await antonContextDb.ToListAsync());
         }
 
         // GET: Artists/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Artist == null)
+            if (id == null || _context.Artists == null)
             {
                 return NotFound();
             }
 
-            var artist = await _context.Artist
+            var artist = await _context.Artists
                 .Include(a => a.Company)
                 .FirstOrDefaultAsync(m => m.ArtistID == id);
             if (artist == null)
@@ -48,7 +48,7 @@ namespace Anton.Views.Artists
         // GET: Artists/Create
         public IActionResult Create()
         {
-            ViewData["CompanyID"] = new SelectList(_context.Company, "CompanyID", "CompanyID");
+            ViewData["CompanyID"] = new SelectList(_context.Companies, "CompanyID", "CompanyID");
             return View();
         }
 
@@ -65,24 +65,24 @@ namespace Anton.Views.Artists
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CompanyID"] = new SelectList(_context.Company, "CompanyID", "CompanyID", artist.CompanyID);
+            ViewData["CompanyID"] = new SelectList(_context.Companies, "CompanyID", "CompanyID", artist.CompanyID);
             return View(artist);
         }
 
         // GET: Artists/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Artist == null)
+            if (id == null || _context.Artists == null)
             {
                 return NotFound();
             }
 
-            var artist = await _context.Artist.FindAsync(id);
+            var artist = await _context.Artists.FindAsync(id);
             if (artist == null)
             {
                 return NotFound();
             }
-            ViewData["CompanyID"] = new SelectList(_context.Company, "CompanyID", "CompanyID", artist.CompanyID);
+            ViewData["CompanyID"] = new SelectList(_context.Companies, "CompanyID", "CompanyID", artist.CompanyID);
             return View(artist);
         }
 
@@ -118,19 +118,19 @@ namespace Anton.Views.Artists
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CompanyID"] = new SelectList(_context.Company, "CompanyID", "CompanyID", artist.CompanyID);
+            ViewData["CompanyID"] = new SelectList(_context.Companies, "CompanyID", "CompanyID", artist.CompanyID);
             return View(artist);
         }
 
         // GET: Artists/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Artist == null)
+            if (id == null || _context.Artists == null)
             {
                 return NotFound();
             }
 
-            var artist = await _context.Artist
+            var artist = await _context.Artists
                 .Include(a => a.Company)
                 .FirstOrDefaultAsync(m => m.ArtistID == id);
             if (artist == null)
@@ -146,14 +146,14 @@ namespace Anton.Views.Artists
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Artist == null)
+            if (_context.Artists == null)
             {
-                return Problem("Entity set 'AntonContextDb.Artist'  is null.");
+                return Problem("Entity set 'AntonContextDb.Artists'  is null.");
             }
-            var artist = await _context.Artist.FindAsync(id);
+            var artist = await _context.Artists.FindAsync(id);
             if (artist != null)
             {
-                _context.Artist.Remove(artist);
+                _context.Artists.Remove(artist);
             }
             
             await _context.SaveChangesAsync();
@@ -162,7 +162,7 @@ namespace Anton.Views.Artists
 
         private bool ArtistExists(int id)
         {
-          return (_context.Artist?.Any(e => e.ArtistID == id)).GetValueOrDefault();
+          return _context.Artists.Any(e => e.ArtistID == id);
         }
     }
 }

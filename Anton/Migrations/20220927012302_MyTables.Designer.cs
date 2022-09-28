@@ -12,14 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Anton.Migrations
 {
     [DbContext(typeof(AntonContextDb))]
-    [Migration("20220803231200_MyTables")]
+    [Migration("20220927012302_MyTables")]
     partial class MyTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.7")
+                .HasAnnotation("ProductVersion", "6.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -122,11 +122,15 @@ namespace Anton.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ArtistID");
 
                     b.HasIndex("CompanyID");
 
-                    b.ToTable("Artist");
+                    b.ToTable("Artist", (string)null);
                 });
 
             modelBuilder.Entity("Anton.Models.Company", b =>
@@ -147,7 +151,7 @@ namespace Anton.Migrations
 
                     b.HasKey("CompanyID");
 
-                    b.ToTable("Company");
+                    b.ToTable("Company", (string)null);
                 });
 
             modelBuilder.Entity("Anton.Models.Song", b =>
@@ -167,7 +171,7 @@ namespace Anton.Migrations
 
                     b.HasKey("SongID");
 
-                    b.ToTable("Song");
+                    b.ToTable("Song", (string)null);
                 });
 
             modelBuilder.Entity("ArtistSong", b =>

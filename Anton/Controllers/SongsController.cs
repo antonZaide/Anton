@@ -22,20 +22,18 @@ namespace Anton.Controllers
         // GET: Songs
         public async Task<IActionResult> Index()
         {
-            return _context.Song != null ?
-                        View(await _context.Song.ToListAsync()) :
-                        Problem("Entity set 'AntonContextDb.Song'  is null.");
+              return View(await _context.Songs.ToListAsync());
         }
 
         // GET: Songs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Song == null)
+            if (id == null || _context.Songs == null)
             {
                 return NotFound();
             }
 
-            var song = await _context.Song
+            var song = await _context.Songs
                 .FirstOrDefaultAsync(m => m.SongID == id);
             if (song == null)
             {
@@ -70,12 +68,12 @@ namespace Anton.Controllers
         // GET: Songs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Song == null)
+            if (id == null || _context.Songs == null)
             {
                 return NotFound();
             }
 
-            var song = await _context.Song.FindAsync(id);
+            var song = await _context.Songs.FindAsync(id);
             if (song == null)
             {
                 return NotFound();
@@ -121,12 +119,12 @@ namespace Anton.Controllers
         // GET: Songs/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Song == null)
+            if (id == null || _context.Songs == null)
             {
                 return NotFound();
             }
 
-            var song = await _context.Song
+            var song = await _context.Songs
                 .FirstOrDefaultAsync(m => m.SongID == id);
             if (song == null)
             {
@@ -141,23 +139,23 @@ namespace Anton.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Song == null)
+            if (_context.Songs == null)
             {
-                return Problem("Entity set 'AntonContextDb.Song'  is null.");
+                return Problem("Entity set 'AntonContextDb.Songs'  is null.");
             }
-            var song = await _context.Song.FindAsync(id);
+            var song = await _context.Songs.FindAsync(id);
             if (song != null)
             {
-                _context.Song.Remove(song);
+                _context.Songs.Remove(song);
             }
-
+            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool SongExists(int id)
         {
-            return (_context.Song?.Any(e => e.SongID == id)).GetValueOrDefault();
+          return _context.Songs.Any(e => e.SongID == id);
         }
     }
 }

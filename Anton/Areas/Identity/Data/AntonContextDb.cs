@@ -1,4 +1,8 @@
-﻿using Anton.Areas.Identity.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Anton.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -8,22 +12,22 @@ namespace Anton.Areas.Identity.Data;
 
 public class AntonContextDb : IdentityDbContext<AntonUser>
 {
-    public AntonContextDb(DbContextOptions<AntonContextDb> options)
-        : base(options)
+    public AntonContextDb(DbContextOptions<AntonContextDb> options): base(options)
     {
     }
 
-    protected override void OnModelCreating(ModelBuilder builder)
+    public DbSet<Company> Companies  { get; set; }
+
+    public DbSet<Artist> Artists  { get; set; }
+
+    public DbSet<Song> Songs  { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(builder);
-        // Customize the ASP.NET Identity model and override the defaults if needed.
-        // For example, you can rename the ASP.NET Identity table names and more.
-        // Add your customizations after calling base.OnModelCreating(builder);
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<Song>().ToTable("Song");
+        modelBuilder.Entity<Artist>().ToTable("Artist");
+        modelBuilder.Entity<Company>().ToTable("Company");
     }
-
-    public DbSet<Anton.Models.Artist>? Artist { get; set; }
-
-    public DbSet<Anton.Models.Company>? Company { get; set; }
-
-    public DbSet<Anton.Models.Song>? Song { get; set; }
 }
+

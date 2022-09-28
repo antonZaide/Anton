@@ -22,20 +22,18 @@ namespace Anton.Controllers
         // GET: Companies
         public async Task<IActionResult> Index()
         {
-            return _context.Company != null ?
-                        View(await _context.Company.ToListAsync()) :
-                        Problem("Entity set 'AntonContextDb.Company'  is null.");
+              return View(await _context.Companies.ToListAsync());
         }
 
         // GET: Companies/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Company == null)
+            if (id == null || _context.Companies == null)
             {
                 return NotFound();
             }
 
-            var company = await _context.Company
+            var company = await _context.Companies
                 .FirstOrDefaultAsync(m => m.CompanyID == id);
             if (company == null)
             {
@@ -70,12 +68,12 @@ namespace Anton.Controllers
         // GET: Companies/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Company == null)
+            if (id == null || _context.Companies == null)
             {
                 return NotFound();
             }
 
-            var company = await _context.Company.FindAsync(id);
+            var company = await _context.Companies.FindAsync(id);
             if (company == null)
             {
                 return NotFound();
@@ -121,12 +119,12 @@ namespace Anton.Controllers
         // GET: Companies/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Company == null)
+            if (id == null || _context.Companies == null)
             {
                 return NotFound();
             }
 
-            var company = await _context.Company
+            var company = await _context.Companies
                 .FirstOrDefaultAsync(m => m.CompanyID == id);
             if (company == null)
             {
@@ -141,23 +139,23 @@ namespace Anton.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Company == null)
+            if (_context.Companies == null)
             {
-                return Problem("Entity set 'AntonContextDb.Company'  is null.");
+                return Problem("Entity set 'AntonContextDb.Companies'  is null.");
             }
-            var company = await _context.Company.FindAsync(id);
+            var company = await _context.Companies.FindAsync(id);
             if (company != null)
             {
-                _context.Company.Remove(company);
+                _context.Companies.Remove(company);
             }
-
+            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CompanyExists(int id)
         {
-            return (_context.Company?.Any(e => e.CompanyID == id)).GetValueOrDefault();
+          return _context.Companies.Any(e => e.CompanyID == id);
         }
     }
 }
