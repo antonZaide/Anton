@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Anton.Areas.Identity.Data;
 using Anton.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Anton.Controllers
 {
@@ -46,6 +47,8 @@ namespace Anton.Controllers
         }
 
         // GET: Artists/Create
+
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["CompanyID"] = new SelectList(_context.Companies, "CompanyID", "CompanyID");
@@ -70,6 +73,7 @@ namespace Anton.Controllers
         }
 
         // GET: Artists/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Artists == null)
@@ -123,6 +127,7 @@ namespace Anton.Controllers
         }
 
         // GET: Artists/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Artists == null)
