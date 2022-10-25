@@ -5,3 +5,9 @@ In the webapp, you could register and login an email account which it would give
 the information in the database.
 </p>
 
+<h1>How set up application before running it.</h1>
+<p>1. Download Visual studio.</p>
+<p>2. Copy Git Link - </p>
+<p>3. Click Tools- NuGet Package Manager Console - Package Manager Console</p>
+<p>4. Write Update-Database on the Console</p>
+<p>5. Final Step Run the app (Ctrl + F5).</p>
