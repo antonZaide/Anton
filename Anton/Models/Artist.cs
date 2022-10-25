@@ -17,6 +17,7 @@ namespace Anton.Models
         public DateTime DOB { get; set; }
         public int CompanyID { get; set; }
 
+        //Foreign Keys
         public Company Company { get; set; }
         public ICollection<Song> Songs { get; set; }
 

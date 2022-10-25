@@ -48,6 +48,7 @@ namespace Anton.Controllers
 
         // GET: Artists/Create
 
+        //User must login an account first before they can peform the action. 
         [Authorize]
         public IActionResult Create()
         {

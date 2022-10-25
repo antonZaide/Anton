@@ -11,6 +11,7 @@ namespace Anton.Models
         public string CompanyName { get; set; }
         public string Supervisor { get; set; }
 
+        //Foreign Key 
         public ICollection<Artist> Artists { get; set; }
     }
 }

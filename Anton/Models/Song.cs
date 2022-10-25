@@ -12,6 +12,7 @@ namespace Anton.Models
         public string Title { get; set; }
         public DateTime DateReleased { get; set; }
 
+        //Foreign Key
         public ICollection<Artist> Artists { get; set; }
     }
 }
